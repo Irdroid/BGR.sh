@@ -17,10 +17,11 @@ clear
 
 PLAYBACK=0
 CURRENT=""
+
 PS3="Избери Радио:"
 
 STATIONS_LIST='Energy FM+ Nova Quit'
-URL_LIST='https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ENERGYAAC_H.aac http://193.108.24.21:8000/fmplus https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_NOVAAAC_H.aac'
+URL_LIST=''
 
 ##############################################################################
 # Функцията "spinner" се използва за показване на прогрес, действие което се # 
@@ -51,18 +52,7 @@ spinner () {
 ##############################################################################
 
 getsong () {
-	case $1 in
-	Energy)
-		set -- $URL_LIST
-		ffprobe -hide_banner $1  |& grep "StreamTitle"
-		set -- $STATIONS_LIST 
- 		;;
-	FM+)
-		set -- $URL_LIST
-		ffprobe -hide_banner $2  |& grep "StreamTitle"
-		set -- $STATIONS_LIST
-		;;
-	esac
+	ffprobe -hide_banner https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ENERGYAAC_H.aac  |& grep "StreamTitle"
  }
 
 ###############################################################################
@@ -84,10 +74,6 @@ select station in $STATIONS_LIST
 		FM+)
 			Play "FM+"
 			break;;
-
-	 	Nova)
-	 		Play "Nova"
-	 		break;;
 	 	Quit)
 	 		exit;;
 	  esac	
@@ -107,35 +93,12 @@ function Play()
 {
 clear
 printf  "\033[104mРадио: $1 \033[0m \n"
-#echo $1
-#echo $CURRENT
-arguments=("$@")
-
+echo $1
+echo $CURRENT
 local pid return
 if [ "$1"  != "$CURRENT" ]; 
-
 then
-	case $1 in
-	  Energy)
-	  	killall ffplay &> /dev/null
-		set -- $URL_LIST
-		ffplay -nodisp -hide_banner $1 &> /dev/null &
-		set -- $arguments
-		;;
-	  FM+)
-	  	killall ffplay &> /dev/null
-	  	set -- $URL_LIST
-	  	ffplay -nodisp -hide_banner $2 &> /dev/null &
-		set -- $arguments 
-		;;
-
-	  Nova)
-	  	killall ffplay &> /dev/null
-	  	set -- $URL_LIST
-	  	ffplay -nodisp -hide_banner $3 &> /dev/null &
-	 	set -- $arguments
-	  	;;
-	esac  
+	ffplay -nodisp -hide_banner https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ENERGYAAC_H.aac &> /dev/null &
 fi
 
 CURRENT=$1
@@ -166,20 +129,10 @@ echo ""
 					clear
 					kill "$pid"
 					wait "$pid"	
-					getsong $CURRENT
+					getsong
 					sleep 3
 					Play $CURRENT
-					;;
-				s)
-					killall ffplay
-					clear
-                                        kill "$pid"
-                                        wait "$pid"
-                                        echo "BGR - Българско радио - Bash playeer"
-                                        echo;
-                                        Select
-                                        exit;;
-					
+		
 		
 			esac
 
