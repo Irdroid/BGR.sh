@@ -15,11 +15,13 @@
 
 clear
 
-PLAYBACK=0
+# Текущ стрийм
 CURRENT=""
+
+# Промпт за избор
 PS3="Избери Радио:"
 
-# Цветове
+# Цветове / Българско знаме
 RED='\033[41m'         # Red
 Green='\033[42m'       # Green
 White='\033[47m'       # White
@@ -117,7 +119,7 @@ select station in $STATIONS_LIST
 
 function PRINTNAME()
 {
- printf "$White \033[0m$Green \033[0m$RED \033[0m BGR - Българско радио - Bash player"
+ printf "$White \033[0m$Green \033[0m$RED \033[0m BGR - Плеър за Българско радио [bash] "
 }
 
 ################################################################################
