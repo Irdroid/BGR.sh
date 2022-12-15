@@ -19,8 +19,25 @@ PLAYBACK=0
 CURRENT=""
 PS3="Избери Радио:"
 
+# Цветове
+RED='\033[41m'         # Red
+Green='\033[42m'       # Green
+White='\033[47m'       # White
+
+
 STATIONS_LIST='Energy FM+ Nova Quit'
-URL_LIST='https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ENERGYAAC_H.aac http://193.108.24.21:8000/fmplus https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_NOVAAAC_H.aac'
+
+#URL_LIST='https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ENERGYAAC_H.aac http://193.108.24.21:8000/fmplus https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_NOVAAAC_H.aac'
+
+read -r -d '' URL_LIST << EOM
+
+	https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ENERGYAAC_H.aac # Energy
+	http://193.108.24.21:8000/fmplus	# FMPLUS
+	https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_NOVAAAC_H.aac # NOVA
+
+EOM
+
+
 
 ##############################################################################
 # Функцията "spinner" се използва за показване на прогрес, действие което се # 
@@ -98,6 +115,11 @@ select station in $STATIONS_LIST
 
 }
 
+function PRINTNAME()
+{
+ printf "$White \033[0m$Green \033[0m$RED \033[0m BGR - Българско радио - Bash player"
+}
+
 ################################################################################
 # Тази фунция се вика след направен избор на радиостанция и служи за свързване #
 # и плейбек на избраната радиостанция от предишната функция		       #
@@ -106,7 +128,7 @@ select station in $STATIONS_LIST
 function Play()
 {
 clear
-printf  "\033[104mРадио: $1 \033[0m \n"
+printf  "$White \033[0m$Green \033[0m$RED \033[0m \033[104mРадио: $1 \033[0m \n"
 #echo $1
 #echo $CURRENT
 arguments=("$@")
@@ -152,7 +174,7 @@ echo ""
 					clear
 					kill "$pid"
 					wait "$pid"		
-					echo "BGR - Българско радио - Bash player"
+					PRINTNAME
 					echo;
 					Select
 					exit;;
@@ -160,6 +182,8 @@ echo ""
 					kill "$pid"
 					wait "$pid"
 					clear
+					printf "\nИзход без спиране на стрийма! \n"
+					printf "за спиране - killall ffplay \n"
 					exit;;
 
 				t)
@@ -175,7 +199,7 @@ echo ""
 					clear
                                         kill "$pid"
                                         wait "$pid"
-                                        echo "BGR - Българско радио - Bash playeer"
+                                        PRINTNAME
                                         echo;
                                         Select
                                         exit;;
@@ -186,7 +210,7 @@ echo ""
 done
 }
 
-	echo "BGR - Българско радио - Bash player"
+	PRINTNAME
 	echo;	
 	Select		
 
