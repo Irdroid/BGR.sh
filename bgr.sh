@@ -156,7 +156,8 @@ select station in $STATIONS_LIST
                 	break
                 ;;
 	 	Изход)
-	 		exit;;
+	 		clear
+			exit;;
 	  esac	
 
 	  REPLY=""
@@ -167,7 +168,13 @@ select station in $STATIONS_LIST
 
 function PRINTNAME()
 {
- printf "$White \033[0m$Green \033[0m$RED \033[0m BGR - Плеър за Българско радио"
+ printf "$White \033[0m$Green \033[0m$RED \033[0m BGR Плеър за Българско Internet радио"
+ echo;
+}
+
+function PRINTINTRO()
+{
+ printf "    Плеър за Българско Internet радио"
  echo;
 }
 
@@ -303,7 +310,15 @@ echo ""
 done
 }
 
-	PRINTNAME
+cat <<EOF
+ ____   _____ _____            _
+|  _ \ / ____|  __ \          | |
+| |_) | |  __| |__) |      ___| |___
+|  _ <| | |_ |  _  /      / __| |_  |
+| |_) | |__| | | \ \   _  \__ \ | | |
+|____/ \_____|_|  \_\ (_) |___/_| |_|
+EOF
+	PRINTINTRO
 	echo;	
 	Select		
 
