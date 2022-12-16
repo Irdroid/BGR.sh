@@ -35,9 +35,13 @@ bgr.sh
 
 ### Избор на радио
 
+![Main Screen](https://raw.githubusercontent.com/Irdroid/BGR.sh/main/Screenshots/1.png)
+
 Става с числа от 1-х и enter
 
 ### Други команди
+
+![Main Screen](https://raw.githubusercontent.com/Irdroid/BGR.sh/main/Screenshots/2.png)
 
 Когато вече е избрана радиостанция може да се ползват следните команди:
 
