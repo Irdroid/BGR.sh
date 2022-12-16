@@ -310,6 +310,12 @@ echo ""
 done
 }
 
+if ! command -v ffplay &> /dev/null
+then
+    echo "ffplay не е намерен,моля инсталирай - sudo apt install ffmpeg"
+    exit
+fi
+
 cat <<EOF
  ____   _____ _____            _
 |  _ \ / ____|  __ \          | |
@@ -318,7 +324,6 @@ cat <<EOF
 | |_) | |__| | | \ \   _  \__ \ | | |
 |____/ \_____|_|  \_\ (_) |___/_| |_|
 EOF
-	PRINTINTRO
-	echo;	
-	Select		
-
+        PRINTINTRO
+        echo;
+        Select
